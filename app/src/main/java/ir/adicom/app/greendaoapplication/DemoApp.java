@@ -2,10 +2,9 @@ package ir.adicom.app.greendaoapplication;
 
 import android.app.Application;
 
-import ir.adicom.app.greendaoapplication.DaoMaster;
-import ir.adicom.app.greendaoapplication.DaoSession;
+import ir.adicom.app.greendaoapplication.Models.DaoMaster;
+import ir.adicom.app.greendaoapplication.Models.DaoSession;
 import ir.adicom.app.greendaoapplication.Models.Event;
-import ir.adicom.app.greendaoapplication.User;
 
 public class DemoApp extends Application {
 

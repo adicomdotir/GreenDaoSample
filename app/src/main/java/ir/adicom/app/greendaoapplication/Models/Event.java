@@ -11,7 +11,7 @@ import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
 public class Event {
-    @Id
+    @Id(autoincrement = true)
     private Long id;
     private String name;
     @Generated(hash = 409782819)
@@ -33,5 +33,10 @@ public class Event {
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Id: " + getId() + ", Title: " + getName();
     }
 }
