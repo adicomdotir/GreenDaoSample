@@ -17,11 +17,6 @@ public class DemoApp extends Application {
                 new DaoMaster.DevOpenHelper(this, "greendao_demo1.db").getWritableDb())
                 .newSession();
 
-        // USER CREATION FOR DEMO PURPOSE
-        if(mDaoSession.getUserDao().loadAll().size() == 0){
-            mDaoSession.getUserDao().insert(new User(1L, "Adicom","", ""));
-        }
-
         if(mDaoSession.getEventDao().loadAll().size() == 0){
             mDaoSession.getEventDao().insert(new Event(1L, "Soccer"));
         }

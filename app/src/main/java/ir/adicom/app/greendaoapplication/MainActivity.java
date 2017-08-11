@@ -1,22 +1,29 @@
 package ir.adicom.app.greendaoapplication;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.List;
 
 import ir.adicom.app.greendaoapplication.Models.Event;
+import ir.adicom.app.greendaoapplication.Models.EventDao;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String LOG = "LOG";
+    private ArrayAdapter<String> adapter;
+    private EventDao eventDao;
+    private String str[];
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +33,39 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        TextView txt = (TextView) findViewById(R.id.txt);
-
-        List<Event> eventList = ((DemoApp)getApplication()).getDaoSession()
-                .getEventDao().loadAll();
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Event event : eventList) {
-            stringBuilder.append(event + "\n");
+        eventDao = ((DemoApp)getApplication()).getDaoSession().getEventDao();
+        init();
+        listView = (ListView) findViewById(R.id.listview);
+        if (listView != null) {
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Event event = eventDao.queryBuilder()
+                            .where(EventDao.Properties.Name.eq(str[position])).list().get(0);
+                    Intent intent = new Intent(MainActivity.this, AddEventActivity.class);
+                    intent.putExtra("id", event.getId());
+                    startActivity(intent);
+                }
+            });
         }
+    }
 
-        txt.setText(stringBuilder.toString());
+    private void init() {
+        List<Event> eventList = eventDao.loadAll();
+        str = new String[eventList.size()];
+        for (int i = 0; i < str.length; i++) {
+            str[i] = eventList.get(i).getName();
+        }
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, str);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init();
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -51,12 +80,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_addevent:
                 startActivity(new Intent(this, AddEventActivity.class));
                 return true;
-
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
     }
 }
