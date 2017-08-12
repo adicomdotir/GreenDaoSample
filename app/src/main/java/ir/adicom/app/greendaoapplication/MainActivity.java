@@ -2,6 +2,7 @@ package ir.adicom.app.greendaoapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -16,6 +17,11 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.btn_event:
                 startActivity(new Intent(MainActivity.this, EventActivity.class));
+                break;
+            case R.id.btn_province:
+                FragmentManager fm = getSupportFragmentManager();
+                AddEditDailogFragment addEditDailogFragment = AddEditDailogFragment.newInstance("Some Title");
+                addEditDailogFragment.show(fm, "fragment_edit_name");
                 break;
         }
     }
