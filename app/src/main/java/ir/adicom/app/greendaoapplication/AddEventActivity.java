@@ -1,12 +1,11 @@
 package ir.adicom.app.greendaoapplication;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import ir.adicom.app.greendaoapplication.Models.Event;
 import ir.adicom.app.greendaoapplication.Models.EventDao;
@@ -26,9 +25,10 @@ public class AddEventActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         if (intent.getExtras() != null) {
             final Event event = eventDao.load(intent.getExtras().getLong("id"));
+            assert etTitle != null;
             etTitle.setText(event.getName());
-            btnAdd.setText("Edit");
             if (btnAdd != null) {
+                btnAdd.setText(R.string.edit_text);
                 btnAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -39,8 +39,8 @@ public class AddEventActivity extends AppCompatActivity {
                 });
             }
         } else {
-            btnAdd.setText("Add");
             if (btnAdd != null) {
+                btnAdd.setText(R.string.add_text);
                 btnAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
