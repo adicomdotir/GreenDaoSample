@@ -28,6 +28,7 @@ public class AddEventActivity extends AppCompatActivity {
             assert etTitle != null;
             etTitle.setText(event.getName());
             if (btnAdd != null) {
+
                 btnAdd.setText(R.string.edit_text);
                 btnAdd.setOnClickListener(new View.OnClickListener() {
                     @Override

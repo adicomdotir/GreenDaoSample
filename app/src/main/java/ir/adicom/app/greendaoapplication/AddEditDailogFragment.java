@@ -13,6 +13,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import ir.adicom.app.greendaoapplication.Models.Event;
+import ir.adicom.app.greendaoapplication.Models.EventDao;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +37,20 @@ public class AddEditDailogFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        final EventDao eventDao = ((DemoApp)getActivity().getApplication()).getDaoSession().getEventDao();
         Button dismiss = (Button) view.findViewById(R.id.btn_cancel);
         dismiss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dismiss();
+            }
+        });
+        final EditText etTitle = (EditText) view.findViewById(R.id.et_title);
+        Button btnAdd = (Button) view.findViewById(R.id.btn_add);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventDao.insert(new Event(null, etTitle.getText().toString()));
                 dismiss();
             }
         });
