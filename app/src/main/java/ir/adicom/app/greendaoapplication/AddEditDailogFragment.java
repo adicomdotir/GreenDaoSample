@@ -8,7 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 
@@ -22,28 +24,23 @@ public class AddEditDailogFragment extends DialogFragment {
     public AddEditDailogFragment() {
     }
 
-    public static AddEditDailogFragment newInstance(String title) {
-        AddEditDailogFragment frag = new AddEditDailogFragment();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        frag.setArguments(args);
-        return frag;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add_edit_dailog, container, false);
+        View root =  inflater.inflate(R.layout.fragment_add_edit_dailog, container, false);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        return root;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mEditText = (EditText) view.findViewById(R.id.et_title);
-        String title = getArguments().getString("title", "Enter Name");
-        getDialog().setTitle(title);
-        mEditText.requestFocus();
-        getDialog().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        Button dismiss = (Button) view.findViewById(R.id.btn_cancel);
+        dismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 
 

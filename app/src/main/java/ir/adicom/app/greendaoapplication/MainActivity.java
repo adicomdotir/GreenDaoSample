@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_province:
                 FragmentManager fm = getSupportFragmentManager();
-                AddEditDailogFragment addEditDailogFragment = AddEditDailogFragment.newInstance("Some Title");
+                AddEditDailogFragment addEditDailogFragment = new AddEditDailogFragment();
                 addEditDailogFragment.show(fm, "fragment_edit_name");
                 break;
         }
