@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, EventActivity.class));
                 break;
             case R.id.btn_province:
-
+                startActivity(new Intent(MainActivity.this, ProvinceActivity.class));
                 break;
         }
     }

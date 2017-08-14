@@ -59,6 +59,7 @@ public class AddEditDailogFragment extends DialogFragment {
             etTitle.setText(event.getName());
             btnAdd.setText(R.string.edit_text);
         }
+        final EventActivity eventActivity = (EventActivity) getActivity();
         final Event finalEvent = event;
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +70,7 @@ public class AddEditDailogFragment extends DialogFragment {
                 } else {
                     eventDao.insert(new Event(null, etTitle.getText().toString()));
                 }
+                eventActivity.onResume();
                 dismiss();
             }
         });

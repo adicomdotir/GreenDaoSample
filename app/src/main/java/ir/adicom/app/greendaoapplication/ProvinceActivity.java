@@ -1,8 +1,8 @@
 package ir.adicom.app.greendaoapplication;
 
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,29 +10,30 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import ir.adicom.app.greendaoapplication.Models.Event;
 import ir.adicom.app.greendaoapplication.Models.EventDao;
+import ir.adicom.app.greendaoapplication.Models.Province;
+import ir.adicom.app.greendaoapplication.Models.ProvinceDao;
 
-public class EventActivity extends AppCompatActivity {
+public class ProvinceActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> adapter;
-    private EventDao eventDao;
+    private ProvinceDao provinceDao;
     private String str[];
     private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event);
+        setContentView(R.layout.activity_province);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        eventDao = ((DemoApp)getApplication()).getDaoSession().getEventDao();
+        provinceDao = ((DemoApp)getApplication()).getDaoSession().getProvinceDao();
         init();
         listView = (ListView) findViewById(R.id.lv_event);
         if (listView != null) {
@@ -40,24 +41,25 @@ public class EventActivity extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Event event = eventDao.queryBuilder()
-                            .where(EventDao.Properties.Name.eq(str[position])).list().get(0);
+                    Province province = provinceDao.queryBuilder()
+                            .where(ProvinceDao.Properties.Title.eq(str[position])).list().get(0);
                     FragmentManager fm = getSupportFragmentManager();
                     AddEditDailogFragment addEditDailogFragment = new AddEditDailogFragment();
                     Bundle args = new Bundle();
-                    args.putLong("id", event.getId());
+                    args.putLong("id", province.getId());
                     addEditDailogFragment.setArguments(args);
                     addEditDailogFragment.show(fm, "fragment_edit_name");
                 }
             });
         }
+
     }
 
     private void init() {
-        List<Event> eventList = eventDao.loadAll();
-        str = new String[eventList.size()];
+        List<Province> provinceList = provinceDao.loadAll();
+        str = new String[provinceList.size()];
         for (int i = 0; i < str.length; i++) {
-            str[i] = eventList.get(i).getName();
+            str[i] = provinceList.get(i).getTitle();
         }
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, str);
     }
@@ -88,4 +90,5 @@ public class EventActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }
