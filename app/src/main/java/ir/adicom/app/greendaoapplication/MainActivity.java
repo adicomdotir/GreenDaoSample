@@ -20,9 +20,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, EventActivity.class));
                 break;
             case R.id.btn_province:
-                FragmentManager fm = getSupportFragmentManager();
-                AddEditDailogFragment addEditDailogFragment = new AddEditDailogFragment();
-                addEditDailogFragment.show(fm, "fragment_edit_name");
+
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package ir.adicom.app.greendaoapplication;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -41,9 +42,15 @@ public class EventActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Event event = eventDao.queryBuilder()
                             .where(EventDao.Properties.Name.eq(str[position])).list().get(0);
-                    Intent intent = new Intent(EventActivity.this, AddEventActivity.class);
-                    intent.putExtra("id", event.getId());
-                    startActivity(intent);
+                    FragmentManager fm = getSupportFragmentManager();
+                    AddEditDailogFragment addEditDailogFragment = new AddEditDailogFragment();
+                    Bundle args = new Bundle();
+                    args.putLong("id", event.getId());
+                    addEditDailogFragment.setArguments(args);
+                    addEditDailogFragment.show(fm, "fragment_edit_name");
+//                    Intent intent = new Intent(EventActivity.this, AddEventActivity.class);
+//                    intent.putExtra("id", event.getId());
+//                    startActivity(intent);
                 }
             });
         }
@@ -76,7 +83,9 @@ public class EventActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_addevent:
-                startActivity(new Intent(this, AddEventActivity.class));
+                FragmentManager fm = getSupportFragmentManager();
+                AddEditDailogFragment addEditDailogFragment = new AddEditDailogFragment();
+                addEditDailogFragment.show(fm, "fragment_edit_name");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

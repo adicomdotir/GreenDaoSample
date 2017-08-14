@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import ir.adicom.app.greendaoapplication.Models.Event;
 import ir.adicom.app.greendaoapplication.Models.EventDao;
@@ -23,6 +23,7 @@ import ir.adicom.app.greendaoapplication.Models.EventDao;
 public class AddEditDailogFragment extends DialogFragment {
 
     private EditText mEditText;
+    private long id;
 
     public AddEditDailogFragment() {
     }
@@ -31,6 +32,11 @@ public class AddEditDailogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root =  inflater.inflate(R.layout.fragment_add_edit_dailog, container, false);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        try {
+            id = getArguments().getLong("id", 0L);
+        } catch (Exception e) {
+            id = 0;
+        }
         return root;
     }
 
@@ -47,10 +53,22 @@ public class AddEditDailogFragment extends DialogFragment {
         });
         final EditText etTitle = (EditText) view.findViewById(R.id.et_title);
         Button btnAdd = (Button) view.findViewById(R.id.btn_add);
+        Event event = null;
+        if(id > 0) {
+            event = eventDao.load(id);
+            etTitle.setText(event.getName());
+            btnAdd.setText(R.string.edit_text);
+        }
+        final Event finalEvent = event;
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eventDao.insert(new Event(null, etTitle.getText().toString()));
+                if(id > 0) {
+                    finalEvent.setName(etTitle.getText().toString());
+                    eventDao.update(finalEvent);
+                } else {
+                    eventDao.insert(new Event(null, etTitle.getText().toString()));
+                }
                 dismiss();
             }
         });
