@@ -48,7 +48,7 @@ public class ProvinceActivity extends AppCompatActivity {
                     Bundle args = new Bundle();
                     args.putLong("id", province.getId());
                     addEditDailogFragment.setArguments(args);
-                    addEditDailogFragment.show(fm, "fragment_edit_name");
+                    addEditDailogFragment.show(fm, "fragment_province");
                 }
             });
         }
@@ -84,7 +84,7 @@ public class ProvinceActivity extends AppCompatActivity {
             case R.id.action_addevent:
                 FragmentManager fm = getSupportFragmentManager();
                 AddEditDailogFragment addEditDailogFragment = new AddEditDailogFragment();
-                addEditDailogFragment.show(fm, "fragment_edit_name");
+                addEditDailogFragment.show(fm, "fragment_province");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

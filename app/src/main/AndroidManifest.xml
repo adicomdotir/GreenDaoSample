@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".EventActivity" />
-        <activity android:name=".ProvinceActivity"></activity>
+        <activity android:name=".ProvinceActivity" />
+        <activity android:name=".CityActivity"></activity>
     </application>
 
 </manifest>

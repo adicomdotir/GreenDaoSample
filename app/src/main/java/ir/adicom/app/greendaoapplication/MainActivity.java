@@ -2,10 +2,8 @@ package ir.adicom.app.greendaoapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -21,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_province:
                 startActivity(new Intent(MainActivity.this, ProvinceActivity.class));
+                break;
+            case R.id.btn_city:
+                startActivity(new Intent(MainActivity.this, CityActivity.class));
                 break;
         }
     }

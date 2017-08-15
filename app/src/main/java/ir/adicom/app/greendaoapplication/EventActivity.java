@@ -47,7 +47,7 @@ public class EventActivity extends AppCompatActivity {
                     Bundle args = new Bundle();
                     args.putLong("id", event.getId());
                     addEditDailogFragment.setArguments(args);
-                    addEditDailogFragment.show(fm, "fragment_edit_name");
+                    addEditDailogFragment.show(fm, "fragment_event");
                 }
             });
         }
@@ -82,7 +82,7 @@ public class EventActivity extends AppCompatActivity {
             case R.id.action_addevent:
                 FragmentManager fm = getSupportFragmentManager();
                 AddEditDailogFragment addEditDailogFragment = new AddEditDailogFragment();
-                addEditDailogFragment.show(fm, "fragment_edit_name");
+                addEditDailogFragment.show(fm, "fragment_event");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
