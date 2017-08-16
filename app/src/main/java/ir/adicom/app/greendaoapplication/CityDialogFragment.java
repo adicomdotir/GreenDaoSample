@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +88,12 @@ public class CityDialogFragment extends DialogFragment {
         City city = null;
         if (id > 0) {
             city = cityDao.load(id);
+            Province province = provinceDao.load(city.getProvinceId());
+            for (int i = 0; i < categories.size(); i++) {
+                if (province.getTitle().equals(categories.get(i))) {
+                    spinner.setSelection(i);
+                }
+            }
             etTitle.setText(city.getTitle());
             btnAdd.setText(R.string.edit_text);
         }
@@ -96,12 +103,20 @@ public class CityDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (id > 0) {
+                    finalCity.setProvinceId(tempProvince.getId());
                     finalCity.setTitle(etTitle.getText().toString());
                     cityDao.update(finalCity);
                 } else {
                     cityDao.insert(new City(null, etTitle.getText().toString(), tempProvince.getId()));
                 }
                 cityActivity.onResume();
+                dismiss();
+            }
+        });
+
+        dismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dismiss();
             }
         });

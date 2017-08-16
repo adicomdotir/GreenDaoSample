@@ -42,13 +42,13 @@ public class CityActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     City city = cityDao.queryBuilder()
-                            .where(EventDao.Properties.Name.eq(str[position])).list().get(0);
+                            .where(CityDao.Properties.Title.eq(str[position])).list().get(0);
                     FragmentManager fm = getSupportFragmentManager();
-                    AddEditDailogFragment addEditDailogFragment = new AddEditDailogFragment();
+                    CityDialogFragment cityDialogFragment = new CityDialogFragment();
                     Bundle args = new Bundle();
                     args.putLong("id", city.getId());
-                    addEditDailogFragment.setArguments(args);
-                    addEditDailogFragment.show(fm, "fragment_event");
+                    cityDialogFragment.setArguments(args);
+                    cityDialogFragment.show(fm, "fragment_city");
                 }
             });
         }
@@ -58,7 +58,7 @@ public class CityActivity extends AppCompatActivity {
         List<City> cityList = cityDao.loadAll();
         str = new String[cityList.size()];
         for (int i = 0; i < str.length; i++) {
-            str[i] = cityList.get(i).getTitle() + "," + cityList.get(i).getProvinceId();
+            str[i] = cityList.get(i).getTitle();
         }
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, str);
     }
