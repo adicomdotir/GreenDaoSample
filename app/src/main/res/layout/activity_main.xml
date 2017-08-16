@@ -44,6 +44,7 @@
             android:id="@+id/btn_province" />
 
         <Button
+            android:onClick="onClick"
             android:text="City"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

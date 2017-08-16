@@ -14,7 +14,7 @@ public class DemoApp extends Application {
     public void onCreate() {
         super.onCreate();
         mDaoSession = new DaoMaster(
-                new DaoMaster.DevOpenHelper(this, "greendao_demo2.db").getWritableDb())
+                new DaoMaster.DevOpenHelper(this, "greendao_demo3.db").getWritableDb())
                 .newSession();
 
         if(mDaoSession.getEventDao().loadAll().size() == 0){

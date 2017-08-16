@@ -13,8 +13,6 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import ir.adicom.app.greendaoapplication.Models.Event;
-import ir.adicom.app.greendaoapplication.Models.EventDao;
 import ir.adicom.app.greendaoapplication.Models.Province;
 import ir.adicom.app.greendaoapplication.Models.ProvinceDao;
 
@@ -81,7 +79,7 @@ public class ProvinceActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_addevent:
+            case R.id.action_add:
                 FragmentManager fm = getSupportFragmentManager();
                 AddEditDailogFragment addEditDailogFragment = new AddEditDailogFragment();
                 addEditDailogFragment.show(fm, "fragment_province");

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -79,7 +78,7 @@ public class EventActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_addevent:
+            case R.id.action_add:
                 FragmentManager fm = getSupportFragmentManager();
                 AddEditDailogFragment addEditDailogFragment = new AddEditDailogFragment();
                 addEditDailogFragment.show(fm, "fragment_event");
