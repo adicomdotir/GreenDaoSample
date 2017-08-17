@@ -20,6 +20,8 @@ public class Province {
     private String title;
     @ToMany(referencedJoinProperty = "provinceId")
     private List<City> cities;
+    @ToMany(referencedJoinProperty = "provinceId")
+    private List<Register> registers;
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
@@ -104,6 +106,32 @@ public class Province {
             throw new DaoException("Entity is detached from DAO context");
         }
         myDao.update(this);
+    }
+    /**
+     * To-many relationship, resolved on first access (and after reset).
+     * Changes to to-many relations are not persisted, make changes to the target entity.
+     */
+    @Generated(hash = 754976129)
+    public List<Register> getRegisters() {
+        if (registers == null) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            RegisterDao targetDao = daoSession.getRegisterDao();
+            List<Register> registersNew = targetDao._queryProvince_Registers(id);
+            synchronized (this) {
+                if (registers == null) {
+                    registers = registersNew;
+                }
+            }
+        }
+        return registers;
+    }
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 2036636424)
+    public synchronized void resetRegisters() {
+        registers = null;
     }
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 488293802)

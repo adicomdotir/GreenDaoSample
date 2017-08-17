@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_city:
                 startActivity(new Intent(MainActivity.this, CityActivity.class));
                 break;
+            case R.id.btn_register:
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                break;
         }
     }
 }

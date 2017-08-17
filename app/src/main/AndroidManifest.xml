@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".EventActivity" />
         <activity android:name=".ProvinceActivity" />
-        <activity android:name=".CityActivity"></activity>
+        <activity android:name=".CityActivity" />
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>
