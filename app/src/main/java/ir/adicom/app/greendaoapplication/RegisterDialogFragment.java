@@ -1,6 +1,7 @@
 package ir.adicom.app.greendaoapplication;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -54,6 +55,16 @@ public class RegisterDialogFragment extends DialogFragment {
             id = 0;
         }
         return root;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
     }
 
     @Override

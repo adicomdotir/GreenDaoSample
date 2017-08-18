@@ -30,6 +30,7 @@ public class ProvinceActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle("Provinces");
 
         provinceDao = ((DemoApp)getApplication()).getDaoSession().getProvinceDao();
         init();
