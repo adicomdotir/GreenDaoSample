@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ir.adicom.app.greendaoapplication.Models.City;
@@ -21,7 +22,7 @@ import ir.adicom.app.greendaoapplication.Models.RegisterDao;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private ArrayAdapter<String> adapter;
+    CustomRegisterAdapter adapter;
     private RegisterDao registerDao;
     private String str[];
     private ListView listView;
@@ -58,11 +59,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void init() {
         List<Register> registerList = registerDao.loadAll();
-        str = new String[registerList.size()];
-        for (int i = 0; i < str.length; i++) {
-            str[i] = registerList.get(i).getFullName();
+        ArrayList<Register> registerArrayList = new ArrayList<>();
+        for (int i = 0; i < registerList.size(); i++) {
+            registerArrayList.add(registerList.get(i));
         }
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, str);
+        adapter = new CustomRegisterAdapter(registerArrayList, getApplicationContext());
     }
 
     @Override
